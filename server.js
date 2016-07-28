@@ -33,7 +33,11 @@
 
 	// configuration =================
 
-	mongoose.connect('mongodb://' + argv.be_ip + ':80/my_database');
+	if (argv.user && argv.password) {
+	  mongoose.connect('mongodb://' + argv.user + ':' + argv.password +'@' + argv.be_ip);
+	} else {
+          mongoose.connect('mongodb://' + argv.be_ip);
+        }
 
     	app.use('/js', express.static(__dirname + '/js'));
    	 app.use('/bower_components', express.static(__dirname + '/bower_components'));
